@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>İyi ki Doğdun 🎉</title>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+#login, #content {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+#content { display: none; }
+input {
+  padding: 10px;
+  width: 80%;
+  margin-top: 10px;
+}
+button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: none;
+  background: #ff6f91;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: red;
+  animation: fall 3s linear infinite;
+}
+@keyframes fall {
+  from { transform: translateY(-10vh); }
+  to { transform: translateY(110vh); }
+}
+</style>
+</head>
+<body>
+
+<div id="login">
+  <h2>🎁 Giriş</h2>
+  <p>İpucu: <b>lakap</b></p>
+  <input type="password" id="pass" placeholder="Şifre">
+  <br>
+  <button onclick="check()">Giriş</button>
+</div>
+
+<div id="content">
+  <h1>🎉 İyi ki Doğdun Seher Damla 🎉</h1>
+  <h3 id="countdown"></h3>
+</div>
+
+<script>
+const correctPass = "lakap";
+
+function check() {
+  if (document.getElementById("pass").value === correctPass) {
+    document.getElementById("login").style.display = "none";
+    document.getElementById("content").style.display = "block";
+    startConfetti();
+  } else {
+    alert("Yanlış şifre 😏");
+  }
+}
+
+const targetDate = new Date("2026-02-24T00:00:00").getTime();
+setInterval(() => {
+  const now = new Date().getTime();
+  const diff = targetDate - now;
+  if (diff > 0) {
+    const d = Math.floor(diff / (1000*60*60*24));
+    document.getElementById("countdown").innerText =
+      "🎂 Doğum gününe " + d + " gün kaldı";
+  } else {
+    document.getElementById("countdown").innerText =
+      "🎉 BUGÜN SENİN GÜNÜN!";
+  }
+}, 1000);
+
+function startConfetti() {
+  for (let i = 0; i < 100; i++) {
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random()*100 + "vw";
+    c.style.background = `hsl(${Math.random()*360},100%,50%)`;
+    c.style.animationDuration = (Math.random()*3+2) + "s";
+    document.body.appendChild(c);
+  }
+}
+</script>
+
+</body>
+</html>
